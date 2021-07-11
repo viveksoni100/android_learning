@@ -1,0 +1,18 @@
+viveksoni100@v-i-v-e-k:~$ sudo su
+[sudo] password for viveksoni100: 
+root@v-i-v-e-k:/home/viveksoni100# cd /
+root@v-i-v-e-k:/# cd dev
+root@v-i-v-e-k:/dev# chmod 777 -R kvm
+root@v-i-v-e-k:/dev# 
+
+
+
+vs code starter
+viveksoni100@v-i-v-e-k:~$ cd /home/viveksoni100/.config
+viveksoni100@v-i-v-e-k:~/.config$ sudo rm -rf Code
+[sudo] password for viveksoni100: 
+viveksoni100@v-i-v-e-k:~/.config$ code
+viveksoni100@v-i-v-e-k:~/.config$ 
+
+
+

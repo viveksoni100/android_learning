@@ -113,7 +113,7 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
     private void handleSignInResults(GoogleSignInResult result) {
         Log.i("handling sign in results : ", "initiated...");
         if (result.isSuccess()) {
-            Toast.makeText(this, "Signin successful", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Signin successful", Toast.LENGTH_SHORT).show();
             GoogleSignInAccount account = result.getSignInAccount();
             View headView = navigationView.getHeaderView(0);
 

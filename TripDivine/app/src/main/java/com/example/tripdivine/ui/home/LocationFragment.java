@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.tripdivine.R;
 
-public class HomeFragment extends Fragment {
+public class LocationFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 

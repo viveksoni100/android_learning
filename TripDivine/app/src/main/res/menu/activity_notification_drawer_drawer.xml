@@ -14,8 +14,8 @@
             android:id="@+id/nav_vadtal"
             android:title="@string/menu_vadtal" />
         <item
-            android:id="@+id/nav_tools"
-            android:title="@string/menu_tools" />
+            android:id="@+id/nav_bhuj"
+            android:title="@string/menu_bhuj" />
     </group>
 
     <item android:title="Communicate">

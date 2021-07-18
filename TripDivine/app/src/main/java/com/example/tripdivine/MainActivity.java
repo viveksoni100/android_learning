@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (requestCode == SIGN_IN) {
             GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (googleSignInResult.isSuccess()) {
-                // startActivity(new Intent(this, NavigationDrawer.class));
-                // finish();   // if user presses back button, close the app.
+                startActivity(new Intent(this, NotificationDrawer.class));
+                finish();   // if user presses back button, close the app.
             } else {
                 Toast.makeText(this, "Login has failed!", Toast.LENGTH_SHORT).show();
             }

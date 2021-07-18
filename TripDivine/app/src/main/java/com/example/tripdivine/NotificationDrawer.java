@@ -1,25 +1,22 @@
 package com.example.tripdivine;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
+import com.google.android.material.snackbar.Snackbar;
 
 public class NotificationDrawer extends AppCompatActivity {
 
@@ -29,8 +26,11 @@ public class NotificationDrawer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_drawer);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +39,9 @@ public class NotificationDrawer extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -48,8 +50,20 @@ public class NotificationDrawer extends AppCompatActivity {
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
+
+        View headView = navigationView.getHeaderView(0);
+        ImageView imageView = headView.findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NotificationDrawer.this, "Fuck me...!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 

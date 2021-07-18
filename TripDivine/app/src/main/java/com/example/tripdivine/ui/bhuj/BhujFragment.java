@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.tripdivine.R;
+import com.example.tripdivine.constants.Constant;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,7 +46,7 @@ public class BhujFragment extends Fragment implements OnMapReadyCallback {
     private void getBhujRegion(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng vadtalMandir = new LatLng(23.246523467835036, 69.66438152675865);
-        mMap.addMarker(new MarkerOptions().position(vadtalMandir).title("શ્રી સ્વામિનારાયણ મંદિર ભુજ"));
+        mMap.addMarker(new MarkerOptions().position(vadtalMandir).title(Constant.BASE_LOCATIONS.bhujMandir.getValue()));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vadtalMandir, 15));
     }
 }

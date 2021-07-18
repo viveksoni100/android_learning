@@ -8,14 +8,14 @@
     <fragment
         android:id="@+id/nav_location"
         android:name="com.example.tripdivine.ui.location.LocationFragment"
-        android:label="@string/Location"
+        android:label="@string/menu_location"
         tools:layout="@layout/fragment_location" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.tripdivine.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:name="com.example.tripdivine.ui.ahmedabad.AhmedabadFragment"
+        android:label="@string/menu_ahmedabad"
+        tools:layout="@layout/fragment_ahmedabad" />
 
     <fragment
         android:id="@+id/nav_slideshow"

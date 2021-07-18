@@ -6,10 +6,10 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_location"
-            android:title="@string/Location" />
+            android:title="@string/menu_location" />
         <item
             android:id="@+id/nav_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="@string/menu_ahmedabad" />
         <item
             android:id="@+id/nav_slideshow"
             android:title="@string/menu_slideshow" />

@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_location" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_ahmedabad"
         android:name="com.example.tripdivine.ui.ahmedabad.AhmedabadFragment"
         android:label="@string/menu_ahmedabad"
         tools:layout="@layout/fragment_ahmedabad" />

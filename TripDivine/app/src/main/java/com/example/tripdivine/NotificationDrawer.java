@@ -25,9 +25,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 public class NotificationDrawer extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -64,7 +62,7 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_location, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.nav_location, R.id.nav_ahmedabad, R.id.nav_slideshow,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();

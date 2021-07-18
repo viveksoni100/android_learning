@@ -47,7 +47,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // getVadtalMandirLocation(googleMap);
         setupLocationListener(googleMap);
     }
 
@@ -92,11 +91,4 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-
-    private void getVadtalMandirLocation(GoogleMap googleMap) {
-        mMap = googleMap;
-        LatLng vadtalMandir = new LatLng(22.592997991477123, 72.87365848126892);
-        mMap.addMarker(new MarkerOptions().position(vadtalMandir).title("શ્રી સ્વામિનારાયણ મંદિર, વડતાલ"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vadtalMandir, 15));
-    }
 }

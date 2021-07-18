@@ -24,7 +24,7 @@
             android:id="@+id/imageView2"
             android:layout_width="395dp"
             android:layout_height="245dp"
-            app:srcCompat="@drawable/kalupur_mandir" />
+            app:srcCompat="@drawable/ahmedabad_mandir" />
 
         <ScrollView
             android:layout_width="match_parent"

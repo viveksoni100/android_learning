@@ -45,8 +45,8 @@ public class BhujFragment extends Fragment implements OnMapReadyCallback {
 
     private void getBhujRegion(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng vadtalMandir = new LatLng(23.246523467835036, 69.66438152675865);
-        mMap.addMarker(new MarkerOptions().position(vadtalMandir).title(Constant.BASE_LOCATIONS.bhujMandir.getValue()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vadtalMandir, 15));
+        LatLng bhujMandir = new LatLng(23.246523467835036, 69.66438152675865);
+        mMap.addMarker(new MarkerOptions().position(bhujMandir).title(Constant.BASE_LOCATIONS.bhujMandir.getValue()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bhujMandir, 15));
     }
 }

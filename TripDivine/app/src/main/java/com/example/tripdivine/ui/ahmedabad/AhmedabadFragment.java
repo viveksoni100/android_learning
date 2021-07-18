@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,9 +21,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class AhmedabadFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
+    ArrayList<LatLng> latLngArrayList = new ArrayList<LatLng>();
+
+    LatLng ahmedabadMandir = new LatLng(23.030067150071346, 72.591600497919);
+    LatLng teenDarwaza = new LatLng(23.024586964655857, 72.58457675559124);
+    LatLng delhiDarwaza = new LatLng(23.03803056054976, 72.58799821326396);
+
 
     @Nullable
     @Override
@@ -39,24 +47,35 @@ public class AhmedabadFragment extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_ahmedabad);
         mapFragment.getMapAsync(this);
 
+        latLngArrayList.add(ahmedabadMandir);
+        latLngArrayList.add(teenDarwaza);
+        latLngArrayList.add(delhiDarwaza);
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        getAhmedabadRegion(googleMap);
+        mMap = googleMap;
+
+        //getAhmedabadRegion(googleMap);
+
+        for (LatLng ll : latLngArrayList) {
+            mMap.addMarker(new MarkerOptions().position(ll).title("Marker"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, 15));
+        }
     }
 
     private void getAhmedabadRegion(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng vadtalMandir = new LatLng(23.030067150071346, 72.591600497919);
-        mMap.addMarker(new MarkerOptions().position(vadtalMandir).title(Constant.BASE_LOCATIONS.kalupurMandir.getValue()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vadtalMandir, 15));
+        LatLng ahmedabadMandir = new LatLng(23.030067150071346, 72.591600497919);
+        mMap.addMarker(new MarkerOptions().position(ahmedabadMandir).title("શ્રી સ્વામિનારાયણ મંદિર કાલુપુર"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ahmedabadMandir, 15));
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Intent kalupurIntent = new Intent(getContext(), KalupurMandir.class);
-                kalupurIntent.putExtra("title", Constant.BASE_LOCATIONS.kalupurMandir.getValue());
+                kalupurIntent.putExtra("title", "શ્રી સ્વામિનારાયણ મંદિર કાલુપુર");
                 startActivity(kalupurIntent);
                 return false;
             }

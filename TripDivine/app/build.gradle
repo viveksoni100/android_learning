@@ -36,4 +36,7 @@ dependencies {
     /*https://github.com/square/picasso
     A powerful image downloading and caching library for Android*/
     implementation 'com.squareup.picasso:picasso:2.71828'
+    // for implementing google maps in the app
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+
 }

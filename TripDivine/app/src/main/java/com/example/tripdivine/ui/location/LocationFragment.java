@@ -10,11 +10,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.tripdivine.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
 
     @Nullable
     @Override
@@ -33,8 +38,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
 
-
+        LatLng vadtalMandir = new LatLng(22.592997991477123, 72.87365848126892);
+        mMap.addMarker(new MarkerOptions().position(vadtalMandir).title("શ્રી સ્વામિનારાયણ મંદિર, વડતાલ"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vadtalMandir, 15));
 
     }
 }

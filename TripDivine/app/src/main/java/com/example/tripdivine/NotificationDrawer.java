@@ -62,7 +62,7 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_location, R.id.nav_ahmedabad, R.id.nav_slideshow,
+                R.id.nav_location, R.id.nav_ahmedabad, R.id.nav_vadtal,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();

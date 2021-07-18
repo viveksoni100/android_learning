@@ -11,8 +11,8 @@
             android:id="@+id/nav_ahmedabad"
             android:title="@string/menu_ahmedabad" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_vadtal"
+            android:title="@string/menu_vadtal" />
         <item
             android:id="@+id/nav_tools"
             android:title="@string/menu_tools" />

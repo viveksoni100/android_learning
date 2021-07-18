@@ -18,9 +18,9 @@
         tools:layout="@layout/fragment_ahmedabad" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.tripdivine.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:id="@+id/nav_vadtal"
+        android:name="com.example.tripdivine.ui.vadtal.VadtalFragment"
+        android:label="@string/menu_vadtal"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment

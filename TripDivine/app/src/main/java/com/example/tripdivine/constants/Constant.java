@@ -23,4 +23,23 @@ public class Constant {
             return Stream.of(BASE_LOCATIONS.values());
         }
     }
+
+    public enum SUB_LOCATIONS {
+        teenDarwaza("ત્રણ દરવાજા"),
+        delhiDarwaza("દિલ્હી દરવાજા");
+
+        private final String value;
+
+        SUB_LOCATIONS(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public static Stream<SUB_LOCATIONS> stream() {
+            return Stream.of(SUB_LOCATIONS.values());
+        }
+    }
 }

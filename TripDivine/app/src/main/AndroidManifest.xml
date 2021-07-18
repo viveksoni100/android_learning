@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ahmedabad.sites.KalupurMandir"></activity>
+        <activity android:name=".ui.ahmedabad.sites.DelhiDarwaza"></activity>
+        <activity android:name=".ui.ahmedabad.sites.TeenDarwaza" />
+        <activity android:name=".ui.ahmedabad.sites.KalupurMandir" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

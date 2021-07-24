@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_location">
+
+    <fragment
+        android:id="@+id/nav_location"
+        android:name="com.example.tripdivine.ui.location.LocationFragment"
+        android:label="@string/menu_location"
+        tools:layout="@layout/fragment_location" />
+
+    <fragment
+        android:id="@+id/nav_ahmedabad"
+        android:name="com.example.tripdivine.ui.ahmedabad.AhmedabadFragment"
+        android:label="@string/menu_ahmedabad"
+        tools:layout="@layout/fragment_ahmedabad" />
+
+    <fragment
+        android:id="@+id/nav_vadtal"
+        android:name="com.example.tripdivine.ui.vadtal.VadtalFragment"
+        android:label="@string/menu_vadtal"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_bhuj"
+        android:name="com.example.tripdivine.ui.bhuj.BhujFragment"
+        android:label="@string/menu_bhuj"
+        tools:layout="@layout/fragment_bhuj" />
+
+    <fragment
+        android:id="@+id/nav_feedback"
+        android:name="com.example.tripdivine.ui.share.ShareFragment"
+        android:label="@string/menu_feedback"
+        tools:layout="@layout/fragment_feedback" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="com.example.tripdivine.ui.send.SendFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_send" />
+</navigation>

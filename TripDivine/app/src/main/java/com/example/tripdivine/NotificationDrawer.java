@@ -1,8 +1,9 @@
 package com.example.tripdivine;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,16 +40,32 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions googleSignInOptions;
 
+    View headView = navigationView.getHeaderView(0);
+
+    SQLiteDatabase database = this.openOrCreateDatabase("trip_divine_db", MODE_PRIVATE, null);
+
+    private boolean isUserSignedIn = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_drawer);
 
-        OAuth2SignInProcess();
+        Intent intent = getIntent();
+        isUserSignedIn = intent.getBooleanExtra("isUserSignedIn", true);
+
+        if (!isUserSignedIn) {
+            OAuth2SignInProcess();
+        }
         InitNavigationDrawer();
     }
 
     private void InitNavigationDrawer() {
+
+        if(isUserSignedIn) {
+            setupNavigationHeadView(headView, database);
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -124,25 +141,48 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
     }
 
     private void handleSignInResults(GoogleSignInResult result) {
-        Log.i("handling sign in results : ", "initiated...");
         if (result.isSuccess()) {
-            //Toast.makeText(this, "Signin successful", Toast.LENGTH_SHORT).show();
             GoogleSignInAccount account = result.getSignInAccount();
-            View headView = navigationView.getHeaderView(0);
+            try {
+                if(!isUserSignedIn) {
+                    if (database.rawQuery("SELECT * FROM users LIMIT 1", null) == null) {
+                        database.execSQL("INSERT INTO users(id, display_name, email, photo_url) VALUES('" +account.getId() + "',"
+                                + "'" + account.getDisplayName() + "',"
+                                + "'" + account.getEmail() + "',"
+                                + "'" + account.getPhotoUrl() + "'"
+                        );
+                    }
 
-            TextView displayName = headView.findViewById(R.id.displayName);
-            displayName.setText(account.getDisplayName());
+                    setupNavigationHeadView(headView, database);
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            goToMainActivity();
+        }
+    }
+
+    private void setupNavigationHeadView(View headView, SQLiteDatabase database) {
+        Cursor cursor = database.rawQuery("SELECT * FROM users LIMIT 1", null);
+        int displayNameIndex = cursor.getColumnIndex("display_name");
+        int emailIndex = cursor.getColumnIndex("email");
+        int photoUrlIndex = cursor.getColumnIndex("photo_url");
+
+        cursor.moveToFirst();
+
+        while (cursor != null) {
+            TextView displayNameTV = headView.findViewById(R.id.displayName);
+            displayNameTV.setText(cursor.getString(displayNameIndex));
 
             TextView emailAddress = headView.findViewById(R.id.emailAddress);
-            emailAddress.setText(account.getEmail());
+            emailAddress.setText(emailIndex);
 
             ImageView imageView = headView.findViewById(R.id.imageView);
-            Picasso.get().load(account.getPhotoUrl()).placeholder(R.mipmap.ic_launcher).into(imageView);
-            Log.i("handling sign in results : ", "completed...");
-        } else {
-            Log.i("handling sign in results : ", "failed...");
-            goToMainActivity();
-            Log.i("redirecting to main activity : ", "completed...");
+            Picasso.get().load(photoUrlIndex).placeholder(R.mipmap.ic_launcher).into(imageView);
+            cursor.moveToNext();
         }
     }
 

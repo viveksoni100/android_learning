@@ -1,22 +1,21 @@
 package com.example.tripdivine;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -24,18 +23,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private SignInButton signInButton;
     private GoogleApiClient googleApiClient;
-    private GoogleMap mMap;
-    private LocationManager locationManager;
-    private LocationListener locationListener;
+    private SQLiteDatabase database;
 
     private static final int SIGN_IN = 1;
 
@@ -44,7 +37,40 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         askForLocationPermission();
-        setUpGoogleSignInOptions();
+        database = setUpDatabaseAndUserTable();
+
+        if(database != null && isUserAlreadySignedIn(database)) {
+            Intent intent = new Intent(this, NotificationDrawer.class);
+            intent.putExtra("isUserSignedIn", true);
+            startActivity(intent);
+            Toast.makeText(this, "User is already signed in, bring me to Notification Drawer...!", Toast.LENGTH_SHORT).show();
+        } else {
+            setUpGoogleSignInOptions();
+        }
+    }
+
+    private boolean isUserAlreadySignedIn(SQLiteDatabase database) {
+        try {
+            Cursor cursor = database.rawQuery("SELECT display_name FROM users", null);
+            if (cursor != null) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private SQLiteDatabase setUpDatabaseAndUserTable() {
+        try {
+            SQLiteDatabase database = this.openOrCreateDatabase("trip_divine_db", MODE_PRIVATE, null);
+            database.execSQL("CREATE TABLE IF NOT EXISTS users(id, VARCHAR, display_name VARCHAR, " +
+                    "email VARCHAR, photo_url VARCHAR(500))");
+            return database;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void askForLocationPermission() {
@@ -67,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                // locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 Log.i("location permission : ", "granted...");
             }
         }
@@ -79,7 +104,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (requestCode == SIGN_IN) {
             GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (googleSignInResult.isSuccess()) {
-                startActivity(new Intent(this, NotificationDrawer.class));
+                Intent intent = new Intent(this, NotificationDrawer.class);
+                intent.putExtra("isUserSignedIn", false);
+                startActivity(intent);
                 finish();   // if user presses back button, close the app.
             } else {
                 Toast.makeText(this, "Login has failed!", Toast.LENGTH_SHORT).show();

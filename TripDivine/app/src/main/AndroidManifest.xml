@@ -16,6 +16,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:allowBackup,icon,theme,label"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.ahmedabad.sites.DelhiDarwaza"></activity>
         <activity android:name=".ui.ahmedabad.sites.TeenDarwaza" />

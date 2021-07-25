@@ -35,14 +35,9 @@ import com.squareup.picasso.Picasso;
 public class NotificationDrawer extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private NavigationView navigationView;
 
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions googleSignInOptions;
-
-    View headView = navigationView.getHeaderView(0);
-
-    SQLiteDatabase database = this.openOrCreateDatabase("trip_divine_db", MODE_PRIVATE, null);
 
     private boolean isUserSignedIn = true;
 
@@ -61,8 +56,11 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
     }
 
     private void InitNavigationDrawer() {
-
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        SQLiteDatabase database = this.openOrCreateDatabase("trip_divine_db", MODE_PRIVATE, null);
         if(isUserSignedIn) {
+
+            View headView = navigationView.getHeaderView(0);
             setupNavigationHeadView(headView, database);
         }
 
@@ -84,48 +82,7 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions).build();
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.notification_drawer, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.logoutBTN:
-                oauth2Logout();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void oauth2Logout() {
-        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-                if (status.isSuccess()) {
-                    goToMainActivity();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Logout is unsuccessful", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
         if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
@@ -140,17 +97,67 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.notification_drawer, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            /*case R.id.logoutBTN:
+                oauth2Logout();
+                return true;*/
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void oauth2Logout() {
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if (status.isSuccess()) {
+                    finish();
+                    //goToMainActivity();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Logout is unsuccessful", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
+    /*@Override
+    protected void onStart() {
+        super.onStart();
+
+    }*/
+
     private void handleSignInResults(GoogleSignInResult result) {
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headView = navigationView.getHeaderView(0);
+        SQLiteDatabase database = this.openOrCreateDatabase("trip_divine_db", MODE_PRIVATE, null);
+
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
             try {
                 if(!isUserSignedIn) {
-                    if (database.rawQuery("SELECT * FROM users LIMIT 1", null) == null) {
+                    if (!database.rawQuery("SELECT * FROM users LIMIT 1", null).moveToFirst()) {
                         database.execSQL("INSERT INTO users(id, display_name, email, photo_url) VALUES('" +account.getId() + "',"
                                 + "'" + account.getDisplayName() + "',"
                                 + "'" + account.getEmail() + "',"
-                                + "'" + account.getPhotoUrl() + "'"
+                                + "'" + account.getPhotoUrl() + "')"
                         );
+
                     }
 
                     setupNavigationHeadView(headView, database);
@@ -171,18 +178,17 @@ public class NotificationDrawer extends AppCompatActivity implements GoogleApiCl
         int emailIndex = cursor.getColumnIndex("email");
         int photoUrlIndex = cursor.getColumnIndex("photo_url");
 
-        cursor.moveToFirst();
-
-        while (cursor != null) {
+        if (cursor != null && cursor.moveToFirst()) {
             TextView displayNameTV = headView.findViewById(R.id.displayName);
             displayNameTV.setText(cursor.getString(displayNameIndex));
 
             TextView emailAddress = headView.findViewById(R.id.emailAddress);
-            emailAddress.setText(emailIndex);
+            emailAddress.setText(cursor.getString(emailIndex));
 
             ImageView imageView = headView.findViewById(R.id.imageView);
-            Picasso.get().load(photoUrlIndex).placeholder(R.mipmap.ic_launcher).into(imageView);
-            cursor.moveToNext();
+            //Picasso.get().load(cursor.getString(photoUrlIndex)).placeholder(R.mipmap.ic_launcher).into(imageView);
+            Picasso.get().load("https://raw.githubusercontent.com/viveksoni100/images.blogs/master/other/shreeji_face.png").placeholder(R.mipmap.ic_launcher).into(imageView);
+            cursor.close();
         }
     }
 

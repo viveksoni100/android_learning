@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Intent intent = new Intent(this, NotificationDrawer.class);
             intent.putExtra("isUserSignedIn", true);
             startActivity(intent);
-            Toast.makeText(this, "User is already signed in, bring me to Notification Drawer...!", Toast.LENGTH_SHORT).show();
         } else {
             setUpGoogleSignInOptions();
         }
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private boolean isUserAlreadySignedIn(SQLiteDatabase database) {
         try {
             Cursor cursor = database.rawQuery("SELECT display_name FROM users", null);
-            if (cursor != null) {
+            if (cursor != null && cursor.moveToFirst()) {
                 return true;
             }
         } catch (Exception e) {

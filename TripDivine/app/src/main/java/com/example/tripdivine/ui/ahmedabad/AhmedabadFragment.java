@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -81,6 +82,7 @@ public class AhmedabadFragment extends Fragment implements OnMapReadyCallback {
             LatLng position = new LatLng(locationMasterDTO.getLat(), locationMasterDTO.getLng());
             mMap.addMarker(new MarkerOptions()
                     .position(position)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.tilak))
                     .title(locationMasterDTO.getTitle_gu())).setTag(locationMasterDTO.getTitle_gu());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
         }

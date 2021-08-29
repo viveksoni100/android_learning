@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -44,5 +45,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     // database debugger
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
+    // firebase database libraries
+    implementation 'com.google.firebase:firebase-database:16.0.4'
 
 }

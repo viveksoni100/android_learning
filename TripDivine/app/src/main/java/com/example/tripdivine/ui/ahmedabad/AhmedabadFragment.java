@@ -11,10 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.tripdivine.R;
-import com.example.tripdivine.constants.Constant;
-import com.example.tripdivine.dto.LocationMasterDTO;
 import com.example.tripdivine.dto.LocationMasterGenericDTO;
-import com.example.tripdivine.ui.ahmedabad.sites.KalupurMandir;
 import com.example.tripdivine.ui.generic.sites.GenericSites;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -89,7 +86,7 @@ public class AhmedabadFragment extends Fragment implements OnMapReadyCallback {
                 public boolean onMarkerClick(Marker marker) {
 
                     Intent intent = new Intent(getContext(), GenericSites.class);
-                    intent.putExtra("title", locationMasterDTO.getTitle_gu());
+                    intent.putExtra("title", marker.getTitle());
                     startActivity(intent);
                     return false;
 

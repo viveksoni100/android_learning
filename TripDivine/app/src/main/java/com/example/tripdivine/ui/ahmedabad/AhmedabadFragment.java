@@ -99,6 +99,7 @@ public class AhmedabadFragment extends Fragment implements OnMapReadyCallback {
                 }
                 if (masterGenericDTO != null) {
                     intent.putExtra("notes_gu", masterGenericDTO.getNotes_gu());
+                    intent.putExtra("image", masterGenericDTO.getImage());
                     startActivity(intent);
                 }
                 return false;

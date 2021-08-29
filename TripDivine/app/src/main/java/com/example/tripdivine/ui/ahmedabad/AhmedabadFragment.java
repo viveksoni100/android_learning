@@ -80,10 +80,12 @@ public class AhmedabadFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         for (LocationMasterGenericDTO locationMasterDTO : masterGenericDTOS) {
             LatLng position = new LatLng(locationMasterDTO.getLat(), locationMasterDTO.getLng());
-            mMap.addMarker(new MarkerOptions()
+            Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(position)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.tilak))
-                    .title(locationMasterDTO.getTitle_gu())).setTag(locationMasterDTO.getTitle_gu());
+                    .title(locationMasterDTO.getTitle_gu()));
+            marker.setTag(locationMasterDTO.getTitle_gu());
+            marker.showInfoWindow();
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
         }
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

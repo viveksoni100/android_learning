@@ -2,9 +2,11 @@ package com.example.tripdivine.ui.ahmedabad;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.tripdivine.R;
 import com.example.tripdivine.dto.LocationMasterGenericDTO;
 import com.example.tripdivine.ui.generic.sites.GenericSites;
+import com.example.tripdivine.util.LocationMasterService;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -80,19 +83,27 @@ public class AhmedabadFragment extends Fragment implements OnMapReadyCallback {
                     .position(position)
                     .title(locationMasterDTO.getTitle_gu())).setTag(locationMasterDTO.getTitle_gu());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
-
-            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-
-                    Intent intent = new Intent(getContext(), GenericSites.class);
-                    intent.putExtra("title", marker.getTitle());
-                    startActivity(intent);
-                    return false;
-
-                }
-            });
         }
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                Intent intent = new Intent(getContext(), GenericSites.class);
+                intent.putExtra("title_gu", marker.getTitle());
+                LocationMasterGenericDTO masterGenericDTO = null;
+                try {
+                    masterGenericDTO = LocationMasterService.getLocationMasterByTitle(masterGenericDTOS, marker.getTitle());
+                } catch (Exception e) {
+                    Log.e("ERROR : ", "Error while getting LocationMaster by Title");
+                    Toast.makeText(getContext(), "Can't load " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+                }
+                if (masterGenericDTO != null) {
+                    intent.putExtra("notes_gu", masterGenericDTO.getNotes_gu());
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
     }
 
 }

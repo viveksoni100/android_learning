@@ -16,8 +16,10 @@ public class GenericSites extends AppCompatActivity {
         setContentView(R.layout.activity_generic_sites);
 
         TextView titleTV = (TextView) findViewById(R.id.genericTitle);
+        TextView notes = (TextView) findViewById(R.id.genericNote);
 
-        Intent kalupurIntent = getIntent();
-        titleTV.setText(kalupurIntent.getStringExtra("title"));
+        Intent genericIntent = getIntent();
+        titleTV.setText(genericIntent.getStringExtra("title_gu"));
+        notes.setText(genericIntent.getStringExtra("notes_gu"));
     }
 }

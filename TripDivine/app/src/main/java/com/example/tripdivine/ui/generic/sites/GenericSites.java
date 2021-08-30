@@ -25,6 +25,7 @@ public class GenericSites extends AppCompatActivity {
         titleTV.setText(genericIntent.getStringExtra("title_gu"));
         notes.setText(genericIntent.getStringExtra("notes_gu"));
         String imagePath = genericIntent.getStringExtra("image");
-        Picasso.get().load(imagePath).placeholder(R.mipmap.ic_launcher).into(img);
+        //Picasso.get().load(imagePath).placeholder(R.mipmap.ic_launcher).into(img);
+        Picasso.get().load(imagePath).placeholder(R.drawable.img_loader).into(img);
     }
 }

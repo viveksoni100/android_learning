@@ -82,7 +82,7 @@ public class AhmedabadFragment extends Fragment implements OnMapReadyCallback {
             LatLng position = new LatLng(locationMasterDTO.getLat(), locationMasterDTO.getLng());
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(position)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.tilak))
+                    /*.icon(BitmapDescriptorFactory.fromResource(R.drawable.tilak))*/
                     .title(locationMasterDTO.getTitle_gu()));
             marker.setTag(locationMasterDTO.getTitle_gu());
             marker.showInfoWindow();

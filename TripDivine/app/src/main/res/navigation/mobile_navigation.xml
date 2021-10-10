@@ -24,6 +24,18 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
+        android:id="@+id/nav_gadhada"
+        android:name="com.example.tripdivine.ui.gadhada.GadhadaFragment"
+        android:label="@string/menu_gadhada"
+        tools:layout="@layout/fragment_gadhada" />
+
+    <fragment
+        android:id="@+id/nav_junagadh"
+        android:name="com.example.tripdivine.ui.junagadh.JunagadhFragment"
+        android:label="@string/menu_gadhada"
+        tools:layout="@layout/fragment_junagadh" />
+
+    <fragment
         android:id="@+id/nav_bhuj"
         android:name="com.example.tripdivine.ui.bhuj.BhujFragment"
         android:label="@string/menu_bhuj"
